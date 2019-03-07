@@ -22,12 +22,12 @@ action :run do
 
     # Do changes
     file = Chef::Util::FileEdit.new(file_path)
-    file.insert_line_after_match(regex, insert)
+    file.insert_line_after_match(regex, new_resource.insert)
     file.write_file
 
     # Notify file changes
     if Digest::SHA256.file(file_path).hexdigest != before
-      Chef::Log.info "+ #{insert}"
+      Chef::Log.info "+ #{new_resource.insert}"
       updated_by_last_action(true)
     end
 
