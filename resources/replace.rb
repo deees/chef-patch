@@ -29,7 +29,7 @@ action :run do
     if Digest::SHA256.file(file_path).hexdigest != before
       Chef::Log.info "- #{new_resource.replace}"
       Chef::Log.info "+ #{new_resource.with}"
-      updated_by_last_action(true)
+      new_resource.updated_by_last_action(true)
     end
 
     # Remove backup file
