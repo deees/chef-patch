@@ -15,8 +15,10 @@ action :run do
             Regexp.new(Regexp.escape(new_resource.line))
           end
 
+  insert_regex = Regexp.new(Regexp.escape(new_resource.insert))
+
   # Check if file matches the regex
-  if ::File.read(file_path) =~ regex
+  if ::File.read(file_path) =~ regex && ::File.read(file_path) !~ insert_regex
     # Calculate file hash before changes
     before = Digest::SHA256.file(file_path).hexdigest
 
